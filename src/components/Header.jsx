@@ -1,9 +1,26 @@
+import { useEffect, useState } from "react"
+import { useDispatch } from "react-redux"
+import { clearSearchedMovies, setSearchedMovies } from "../store/searchedMovieSlice"
+import { fetchMovies } from "../api/movies"
+
 export default function Header() {
+    const [input, setInput] = useState('')
+    const dispatch = useDispatch()
+    
+    useEffect(() => {
+        if(input.length > 3)    fetchMovies(input).then((data) => {
+            dispatch(setSearchedMovies(data))
+        })
+        else    dispatch(clearSearchedMovies())
+    }, [input])
+
     return (
         <header className="w-full bg-white shadow-sm px-6 py-4 flex items-center justify-center">
             <div className="w-full max-w-2xl relative">
                 <input
                     type="text"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
                     placeholder="Search movies..."
                     className="w-full pl-10 pr-4 py-2.5 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400 text-sm"
                 />
