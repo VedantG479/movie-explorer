@@ -60,3 +60,22 @@ export const fetchGenres = async () => {
         return []
     }
 }
+
+export const fetchMovie = async (id) => {
+    try {
+        const response = await axios.get(
+            `https://api.themoviedb.org/3/movie/${id}`, 
+            {
+                headers: {
+                    Authorization: `Bearer ${ACCESS_TOKEN}`
+                }
+            }
+        )
+
+        return response.data
+    }
+    catch(error){
+        console.log("Error finding movies:", error)
+        return []
+    }
+}

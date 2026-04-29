@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux"
+import { Link } from "react-router"
 
 export default function MovieCard({movie}) {
     const genres = useSelector(state => state.genres.genres)
@@ -12,7 +13,8 @@ export default function MovieCard({movie}) {
     }, [genres, movie.genre_ids])
 
     return (
-        <div className="bg-white rounded-xl shadow-sm hover:shadow-md transition duration-200 overflow-hidden flex flex-col">
+        <Link className="bg-white rounded-xl shadow-sm hover:shadow-md transition duration-200 overflow-hidden flex flex-col"
+            to={`/movie/${movie.id}`}>
             <div className="w-full h-64 bg-gray-200 overflow-hidden">
                 <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt="movie" className="w-full h-full object-cover" />
             </div>
@@ -23,6 +25,6 @@ export default function MovieCard({movie}) {
                     {movie.release_date.slice(0,4)} • {genre}
                 </p>
             </div>
-        </div>
+        </Link>
     )
 }

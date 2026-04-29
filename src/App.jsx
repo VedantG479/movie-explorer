@@ -8,6 +8,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setPopularMovies } from './store/popoularMoviesSlice'
 import { setGenres } from './store/genreSlice'
+import { Route, Routes } from 'react-router'
 
 function App() {
   const dispatch = useDispatch()
@@ -20,7 +21,10 @@ function App() {
   return (
     <>
       <Header />
-      <MovieGrid />
+      <Routes>
+        <Route index element={<MovieGrid/>}/>
+        <Route path='/movie/:movieId' element={<MoviePage/>}/>
+      </Routes>
     </>
   )
 }
